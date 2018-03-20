@@ -39,7 +39,7 @@ ADD CONSTRAINT st_isbn
 FOREIGN KEY (isbn) 
 REFERENCES book_details(isbn);
 
-—DDL library log
+--  DDL library log
 
 CREATE TABLE library_register
 (
