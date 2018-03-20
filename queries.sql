@@ -5,13 +5,13 @@
 3. select book_name from (select book_name,count(*) from books group by book_name) b where count<=5;
 
 4. VIEW most_borrowed_books_dec - 
-select distinct book_name, count from (select isbn,count(*) from library_register where borrow_date between '2017-12-01' and '2017-12-31' group by isbn) lr join books b on lr.isbn = b.isbn;
+create view most_borrowed_books_dec as select distinct book_name, count from (select isbn,count(*) from library_register where borrow_date between '2017-12-01' and '2017-12-31' group by isbn) lr join books b on lr.isbn = b.isbn;
 
 select book_name from most_borrowed_books_dec mbb where count = (select max(count) from most_borrowed_books_dec);
 
 5. VIEW recent_borrowed_books - 
 
-select distinct book_name from books b join library_register l on l.isbn=b.isbn where (DATE_PART('year', now()::date) - DATE_PART('year', borrow_date::date)) * 12 +(DATE_PART('month', now()::date) - DATE_PART('month', borrow_date::date))<4;
+create view recent_borrowed_books as select distinct book_name from books b join library_register l on l.isbn=b.isbn where (DATE_PART('year', now()::date) - DATE_PART('year', borrow_date::date)) * 12 +(DATE_PART('month', now()::date) - DATE_PART('month', borrow_date::date))<4;
 
 select book_name from book_details  except (select book_name from recent_borrowed_books);
 
@@ -25,12 +25,12 @@ select distinct book_name from recent_borrowed_books_count where copy_no>10;
 
 
 7. VIEW user_log_dec - 
-select borrowed_by,count(*) from library_register where borrow_date between '2017-12-01' and '2017-12-31' group by borrowed_by;
+create view user_log_dec as select borrowed_by,count(*) from library_register where borrow_date between '2017-12-01' and '2017-12-31' group by borrowed_by;
 
 select borrowed_by from user_log_dec where count=(select max(count) from user_log_dec);
 
 8. VIEW books_in_possesion -
-select * from library_register where return_date is null and date_part('day',now()::timestamp - borrow_date::timestamp)>15;
+create view books_in_possesion as select * from library_register where return_date is null and date_part('day',now()::timestamp - borrow_date::timestamp)>15;
 
  select distinct borrowed_by from books_in_possesion;
 
