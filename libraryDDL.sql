@@ -1,6 +1,6 @@
-CREATE SCHEMA step_library;
+CREATE SCHEMA step;
 
-SET search_path to step_library;
+SET search_path to step;
 
 -- DDL books
 
@@ -12,6 +12,9 @@ CREATE TABLE books(
   PRIMARY KEY(isbn,copy_no)
 );
 
+\set pwd '\'':p'/data/books.csv\''
+copy books from :pwd with delimiter ',';
+
 
 -- DDL user
 
@@ -21,16 +24,22 @@ user_id VARCHAR(10) PRIMARY KEY,
  user_name varchar(100) NOT NULL
 );
 
+\set pwd '\'':p'/data/users.csv\''
+copy users from :pwd with delimiter ',';
+
 -- DDL book details
 
 CREATE TABLE book_details(
 isbn Numeric(15) primary key,
  name VARCHAR(100) not null,
  author VARCHAR(100),
- publisher VARCHAR(100),
  no_of_pages NUMERIC(5),
+ publisher VARCHAR(100),
  description TEXT
 );
+
+\set pwd '\'':p'/data/book_details.csv\''
+copy book_details from :pwd with delimiter ',';
 
 -- Foreign Key columns for book details table
 
@@ -50,6 +59,9 @@ borrow_date DATE,
 return_date DATE
 );
 
+\set pwd '\'':p'/data/library_register.csv\''
+copy library_register from :pwd with delimiter ',';
+
 -- Foreign Key columns for library log table
 
 ALTER TABLE library_register
@@ -62,4 +74,3 @@ ALTER TABLE library_register
 ADD CONSTRAINT st_borrowed_by
 FOREIGN KEY (borrowed_by)
 REFERENCES users(user_id);
-
