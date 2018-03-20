@@ -34,10 +34,10 @@ isbn Numeric(15) primary key,
 
 -- Foreign Key columns for book details table
 
-ALTER TABLE book_details
+ALTER TABLE books
 ADD CONSTRAINT st_isbn
 FOREIGN KEY (isbn) 
-REFERENCES books(isbn);
+REFERENCES book_details(isbn);
 
 —DDL library log
 
