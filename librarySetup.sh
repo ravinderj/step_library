@@ -5,6 +5,9 @@ STATUS=$?
 if [ $STATUS -ne 0 ]
   then exit 1
   echo "setup failed"
+then
+  echo "setup failed"
+  exit 1
 else
   echo "setup done"
 fi
