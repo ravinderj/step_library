@@ -6,14 +6,14 @@ SET search_path to step_library_5;
 
 CREATE TABLE books(
   isbn NUMERIC(15),
-  copy_no numeric(3),
-  book_name varchar(50) not null,
-  status varchar(10) not null,
+  copy_no NUMERIC(3),
+  book_name VARCHAR(50) NOT NULL,
+  status VARCHAR(10) NOT NULL,
   PRIMARY KEY(isbn,copy_no)
 );
 
-\set pwd '\'':p'/data/books.csv\''
-copy books from :pwd with delimiter ',';
+\SET pwd '\'':p'/data/books.csv\''
+copy books FROM :pwd WITH delimiter ',';
 
 
 -- DDL user
@@ -21,25 +21,25 @@ copy books from :pwd with delimiter ',';
 CREATE TABLE users
 (
 user_id VARCHAR(10) PRIMARY KEY,
- user_name varchar(100) NOT NULL
+ user_name VARCHAR(100) NOT NULL
 );
 
-\set pwd '\'':p'/data/users.csv\''
-copy users from :pwd with delimiter ',';
+\SET pwd '\'':p'/data/users.csv\''
+copy users FROM :pwd WITH delimiter ',';
 
 -- DDL book details
 
 CREATE TABLE book_details(
-isbn Numeric(15) primary key,
- name VARCHAR(100) not null,
+isbn NUMERIC(15) PRIMARY KEY,
+ name VARCHAR(100) NOT NULL,
  author VARCHAR(100),
  no_of_pages NUMERIC(5),
  publisher VARCHAR(100),
  description TEXT
 );
 
-\set pwd '\'':p'/data/book_details.csv\''
-copy book_details from :pwd with delimiter ',';
+\SET pwd '\'':p'/data/book_details.csv\''
+copy book_details FROM :pwd WITH delimiter ',';
 
 -- Foreign Key columns for book details table
 
@@ -52,15 +52,15 @@ REFERENCES book_details(isbn);
 
 CREATE TABLE library_register
 (
-isbn Numeric(15) NOT NULL,
-copy_no NUMERIC(5) not null,
+isbn NUMERIC(15) NOT NULL,
+copy_no NUMERIC(5) NOT NULL,
 borrowed_by VARCHAR(100),
-borrow_date DATE,
+borrow_date DATE NOT NULL,
 return_date DATE
 );
 
-\set pwd '\'':p'/data/library_register.csv\''
-copy library_register from :pwd with delimiter ',';
+\SET pwd '\'':p'/data/library_register.csv\''
+copy library_register FROM :pwd WITH delimiter ',';
 
 -- Foreign Key columns for library log table
 
