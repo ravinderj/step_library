@@ -1,6 +1,6 @@
-CREATE SCHEMA step;
+CREATE SCHEMA step_library_5;
 
-SET search_path to step;
+SET search_path to step_library_5;
 
 -- DDL books
 
@@ -19,7 +19,7 @@ copy books from :pwd with delimiter ',';
 -- DDL user
 
 CREATE TABLE users
-( 
+(
 user_id VARCHAR(10) PRIMARY KEY,
  user_name varchar(100) NOT NULL
 );
@@ -45,7 +45,7 @@ copy book_details from :pwd with delimiter ',';
 
 ALTER TABLE books
 ADD CONSTRAINT st_isbn
-FOREIGN KEY (isbn) 
+FOREIGN KEY (isbn)
 REFERENCES book_details(isbn);
 
 --  DDL library log
